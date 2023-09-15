@@ -1,0 +1,23 @@
+name: "From OpenAPI file to Postman"
+
+on:
+  workflow_dispatch:
+    inputs:
+      file:
+        description: 'OpenAPI filepath'     
+        required: true
+        default: 'test/openapi/openapi.yaml'
+jobs:
+  generate:
+    name: "Generate Postman Collection"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+      - uses: addnab/docker-run-action@v3
+        with:
+          image: openapitools/openapi-generator-cli
+          options: -v ${{ github.workspace }}:/usr/src/app
+          run: |
+            generate -i ${{ github.event.inputs.file }} -g postman-collection -o /usr/src/app/postman
