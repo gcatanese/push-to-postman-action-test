@@ -6,7 +6,7 @@ on:
       file:
         description: 'OpenAPI filepath'     
         required: true
-        default: 'test/openapi/openapi.yaml'
+        default: 'test/openapi/test.yml'
 jobs:
   generate:
     name: "Generate Postman Collection"
