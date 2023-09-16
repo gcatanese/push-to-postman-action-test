@@ -20,4 +20,7 @@ jobs:
           image: openapitools/openapi-generator-cli
           options: -v ${{ github.workspace }}:/local
           run: |
+            echo "Start"
+            pwd
+            ls -l
             /local/usr/local/bin/docker-entrypoint.sh generate -i ${{ github.event.inputs.file }} -g postman-collection -o /local/out
