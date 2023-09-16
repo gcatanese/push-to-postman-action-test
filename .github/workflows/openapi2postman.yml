@@ -22,5 +22,6 @@ jobs:
           run: |
             echo "Start"
             pwd
-            ls -l
-            /local/usr/local/bin/docker-entrypoint.sh generate -i ${{ github.event.inputs.file }} -g postman-collection -o /local/out
+            ls -l /local
+            ls -l /local/usr
+            /usr/local/bin/docker-entrypoint.sh generate -i ${{ github.event.inputs.file }} -g postman-collection -o /local/out
