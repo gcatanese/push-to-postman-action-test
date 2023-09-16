@@ -18,11 +18,11 @@ jobs:
       - uses: addnab/docker-run-action@v3
         with:
           image: openapitools/openapi-generator-cli
-          options: -v ${{ github.workspace }}:/
+          options: -v ${{ github.workspace }}:/local
           run: |
             echo "Generate postman.json from ${{ github.event.inputs.file }}"
-            /usr/local/bin/docker-entrypoint.sh generate -i /${{ github.event.inputs.file }} -g postman-collection -o /out
-            ls /out
+            /usr/local/bin/docker-entrypoint.sh generate -i /local/${{ github.event.inputs.file }} -g postman-collection -o /local/out
+            ls /local/out
       - uses: gcatanese/push-to-postman-action@main
         with:
           goal: createOrUpdate
