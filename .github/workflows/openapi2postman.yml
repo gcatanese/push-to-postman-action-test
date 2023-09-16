@@ -22,10 +22,9 @@ jobs:
           run: |
             echo "Generate postman.json from ${{ github.event.inputs.file }}"
             /usr/local/bin/docker-entrypoint.sh generate -i /local/${{ github.event.inputs.file }} -g postman-collection -o /local/out
-            ls /local/out
       - uses: gcatanese/push-to-postman-action@main
         with:
           goal: createOrUpdate
           postman-key: ${{ secrets.POSTMAN_API_KEY }}
-          postman-file: /out/postman.json
+          postman-file: ${{ github.workspace }}/out/postman.json
           workspace-id: ${{ secrets.POSTMAN_WORKSPACE_ID }}
