@@ -12,17 +12,20 @@ jobs:
     name: "Generate Postman Collection"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repo    
+        uses: actions/checkout@v3
         with:
           fetch-depth: 2
-      - uses: addnab/docker-run-action@v3
+      - name: Generate postman.json    
+        uses: addnab/docker-run-action@v3
         with:
           image: openapitools/openapi-generator-cli
           options: -v ${{ github.workspace }}:/local
           run: |
             echo "Generate postman.json from ${{ github.event.inputs.file }}"
             /usr/local/bin/docker-entrypoint.sh generate -i /local/${{ github.event.inputs.file }} -g postman-collection -o /local/out
-      - uses: gcatanese/push-to-postman-action@main
+      - name: Push to Postman    
+        uses: gcatanese/push-to-postman-action@main
         with:
           goal: createOrUpdate
           postman-key: ${{ secrets.POSTMAN_API_KEY }}
